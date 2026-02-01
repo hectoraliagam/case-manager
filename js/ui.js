@@ -104,3 +104,24 @@ function removeCase(id) {
   deleteCase(id);
   renderCases();
 }
+
+function openExportModal() {
+  modal.classList.remove("hidden");
+  modalTitle.textContent = "Exportar anotaciones";
+  formFields.innerHTML = `
+    <label>Fecha del archivo</label>
+    <div style="margin-top: .5rem">
+      <label>
+        <input type="radio" name="dateMode" value="today" checked>
+        Usar fecha actual
+      </label>
+    </div>
+    <div style="margin-top: .5rem">
+      <label>
+        <input type="radio" name="dateMode" value="custom">
+        Elegir fecha
+      </label>
+      <input type="date" name="customDate" style="margin-top:.3rem">
+    </div>
+  `;
+}
