@@ -5,13 +5,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   border-bottom: 1px solid var(--border-soft);
+  flex-wrap: wrap;
 }
 
 .app-header h1 {
   margin: 0;
   font-size: 1.4rem;
   font-weight: 600;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
 }
 
 /* GRID */
