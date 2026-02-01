@@ -121,19 +121,34 @@ function openExportModal() {
   modal.classList.remove("hidden");
   modalTitle.textContent = "Exportar anotaciones";
   formFields.innerHTML = `
-    <label>Fecha del archivo</label>
-    <div style="margin-top: .5rem">
-      <label>
-        <input type="radio" name="dateMode" value="today" checked>
-        Usar fecha actual
-      </label>
-    </div>
-    <div style="margin-top: .5rem">
-      <label>
-        <input type="radio" name="dateMode" value="custom">
-        Elegir fecha
-      </label>
-      <input type="date" name="customDate" style="margin-top:.3rem">
+    <div class="export-box">
+      <p class="export-desc">
+        Se generará un archivo TXT con todos los casos guardados.
+      </p>
+      <div class="export-options">
+        <label class="radio-option">
+          <input type="radio" name="dateMode" value="today" checked>
+          <strong>Usar fecha actual</strong>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="dateMode" value="custom">
+          <strong>Elegir fecha</strong>
+        </label>
+
+        <div class="custom-date hidden">
+          <input type="date" name="customDate">
+        </div>
+      </div>
     </div>
   `;
+  const radios = formFields.querySelectorAll("input[name='dateMode']");
+  const dateBox = formFields.querySelector(".custom-date");
+  radios.forEach((radio) => {
+    radio.addEventListener("change", () => {
+      dateBox.classList.toggle(
+        "hidden",
+        !(radio.value === "custom" && radio.checked),
+      );
+    });
+  });
 }

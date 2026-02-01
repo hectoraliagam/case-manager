@@ -61,3 +61,60 @@
   border: none;
   cursor: pointer;
 }
+
+/* EXPORT */
+.export-box {
+  margin-top: 0.5rem;
+}
+
+.export-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.export-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.radio-option {
+  position: relative;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-input);
+  border: 1px solid var(--border-soft);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.radio-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.radio-option strong {
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.radio-option:has(input:checked) {
+  border-color: var(--accent-ticket);
+  background: rgba(79, 195, 247, 0.08);
+  box-shadow: 0 0 0 1px rgba(79, 195, 247, 0.35);
+}
+
+.radio-option:hover {
+  border-color: var(--accent-ticket);
+}
+
+.custom-date {
+  margin-top: 0.4rem;
+  padding-left: 0.25rem;
+}
+
+.custom-date input {
+  max-width: 200px;
+}
