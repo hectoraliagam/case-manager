@@ -1,23 +1,21 @@
 // ui/modal/modal.confirm.js
 
-import { modal, modalTitle, formFields, modalFooter } from "../ui.init.js";
-import { closeModal, setModalMode, openModalOverlay } from "./modal.base.js";
+import { createModal, openModal, closeModal } from "./modal.base.js";
 
 export function openConfirmModal({ title, message, onConfirm }) {
-  openModalOverlay(title);
-  setModalMode("confirm");
-
-  formFields.innerHTML = `<p class="confirm-text">${message}</p>`;
-  modalFooter.innerHTML = `
+  const modalObj = createModal();
+  openModal(modalObj, title);
+  modalObj.formFields.innerHTML = `<p class="confirm-text">${message}</p>`;
+  modalObj.modalFooter.innerHTML = `
     <div class="modal-actions">
-      <button type="button" id="confirm-cancel">Cancelar</button>
-      <button type="button" class="danger" id="confirm-yes">Eliminar</button>
+      <button type="button" class="cancel-btn">Cancelar</button>
+      <button type="button" class="danger">Eliminar</button>
     </div>
   `;
-
-  document.getElementById("confirm-cancel").onclick = closeModal;
-  document.getElementById("confirm-yes").onclick = () => {
+  modalObj.modalFooter.querySelector(".cancel-btn").onclick = () =>
+    closeModal(modalObj);
+  modalObj.modalFooter.querySelector(".danger").onclick = () => {
     onConfirm();
-    closeModal();
+    closeModal(modalObj);
   };
 }

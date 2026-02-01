@@ -1,15 +1,12 @@
-// app.js refactorizado
-import {
-  loadCases,
-  addCase,
-  upsertCase, // nueva función que hay que agregar en cases.store.js
-} from "./data/cases.store.js";
+// app.js
+
+import { loadCases, addCase, upsertCase } from "./data/cases.store.js";
 import { formatDate } from "./helpers/date.js";
 import { initUI } from "./ui/ui.init.js";
 import { renderCases } from "./ui/ui.render.js";
 import { parseTxtCases } from "./parser.js";
 import { exportAllCasesToTxt } from "./exporter.js";
-import { openModal } from "./ui/modal/modal.form.js";
+import { openFormModal } from "./ui/modal/modal.form.js";
 import { openExportModal } from "./ui/modal/modal.export.js";
 import { closeModal } from "./ui/modal/modal.base.js";
 
@@ -18,58 +15,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const btnBbdd = document.getElementById("btn-new-bbdd");
   const btnTicket = document.getElementById("btn-new-ticket");
+  const btnExport = document.getElementById("btn-export");
   const btnCancel = document.getElementById("btn-cancel");
   const btnImport = document.getElementById("btn-import");
-  const btnExport = document.getElementById("btn-export");
   const fileInput = document.getElementById("file-input");
   const form = document.getElementById("case-form");
   const modalOverlay = document.getElementById("modal-overlay");
 
-  // BOTONES
-  btnBbdd.addEventListener("click", () => openModal("BBDD"));
-  btnTicket.addEventListener("click", () => openModal("TICKET"));
+  // Abrir modales
+  btnBbdd.addEventListener("click", () => openFormModal("BBDD"));
+  btnTicket.addEventListener("click", () => openFormModal("TICKET"));
   btnExport.addEventListener("click", openExportModal);
   btnCancel.addEventListener("click", closeModal);
 
-  // Cerrar modal si clic afuera
+  // Cerrar modal al hacer click fuera del contenido
   modalOverlay.addEventListener("click", (e) => {
     if (e.target === modalOverlay) closeModal();
   });
 
-  // SUBMIT DEL FORMULARIO
+  // Submit del form
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const mode = form.dataset.mode;
 
     if (mode === "form") handleFormSubmit();
     else if (mode === "export") handleExportSubmit();
-    else if (mode === "confirm") handleConfirmSubmit();
   });
 
-  // IMPORTAR
+  // Importar archivo
   btnImport.addEventListener("click", () => fileInput.click());
   fileInput.addEventListener("change", handleFileImport);
 
-  // Render inicial
+  // Render inicial de casos
   renderCases();
 });
 
-// ---------- FUNCIONES ----------
-
-// Crear o editar caso
+// Manejar submit del formulario
 function handleFormSubmit() {
   const form = document.getElementById("case-form");
   const data = Object.fromEntries(new FormData(form));
+
   data.tipo ||= "BBDD";
+  if (!data.id) data.id = crypto.randomUUID();
 
-  if (!data.id) data.id = crypto.randomUUID(); // nuevo caso
-
-  upsertCase(data); // actualiza o agrega según corresponda
+  upsertCase(data);
   closeModal();
-  renderCases(); // se ve inmediatamente
+  renderCases();
 }
 
-// Exportar casos
+// Manejar exportación
 function handleExportSubmit() {
   const form = document.getElementById("case-form");
   const formData = new FormData(form);
@@ -91,13 +85,7 @@ function handleExportSubmit() {
   closeModal();
 }
 
-// Confirm modal (no necesita lógica especial aquí)
-function handleConfirmSubmit() {
-  // Solo cierra el modal, la acción se maneja en openConfirmModal
-  closeModal();
-}
-
-// Importar archivo
+// Manejar importación de archivo
 function handleFileImport(e) {
   const file = e.target.files[0];
   if (!file) return;
