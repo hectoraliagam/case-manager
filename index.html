@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Case Manager - Backoffice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Case Manager</h1>
+      <div class="actions">
+        <button id="btn-new-bbdd">Agregar Caso BBDD</button>
+        <button id="btn-new-ticket">Agregar Caso Ticket</button>
+        <button id="btn-import">Importar TXT</button>
+        <input type="file" id="file-input" accept=".txt" hidden />
+      </div>
+    </header>
+    <main>
+      <section id="cases-container" class="cases-grid">
+        <!-- Cards dinámicas -->
+      </section>
+    </main>
+    <div id="modal-overlay" class="hidden">
+      <div class="modal">
+        <h2 id="modal-title"></h2>
+        <form id="case-form">
+          <div id="form-fields"></div>
+          <div class="modal-actions">
+            <button type="submit">Guardar</button>
+            <button type="button" id="btn-cancel">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="js/storage.js"></script>
+    <script src="js/parser.js"></script>
+    <script src="js/exporter.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
