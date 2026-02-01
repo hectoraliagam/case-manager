@@ -1,0 +1,155 @@
+:root {
+  --bg-main: #0f1115;
+  --bg-card: #161a22;
+  --bg-modal: #1c2230;
+  --accent-bbdd: #c9a14a;
+  --accent-ticket: #4fc3f7;
+  --text-main: #e6e6e6;
+  --text-muted: #9aa4b2;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+/* HEADER */
+.app-header {
+  padding: 1rem 2rem;
+  background: #0b0d12;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #222;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.actions button {
+  margin-left: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  background: #222;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.actions button:hover {
+  background: #333;
+}
+
+/* GRID */
+.cases-grid {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
+
+/* CARD */
+.case-card {
+  background: var(--bg-card);
+  border-radius: 10px;
+  padding: 1rem;
+  border-left: 5px solid transparent;
+}
+
+.case-card.bbdd {
+  border-color: var(--accent-bbdd);
+}
+
+.case-card.ticket {
+  border-color: var(--accent-ticket);
+}
+
+.case-card h3 {
+  margin: 0 0 0.5rem 0;
+}
+
+.case-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.card-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-actions button {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.card-actions button:hover {
+  color: white;
+}
+
+/* MODAL */
+#modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+#modal-overlay:not(.hidden) {
+  display: flex;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal {
+  background: var(--bg-modal);
+  padding: 1.5rem;
+  width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 12px;
+}
+
+.modal h2 {
+  margin-top: 0;
+}
+
+.modal label {
+  display: block;
+  font-size: 0.8rem;
+  margin-top: 0.8rem;
+  color: var(--text-muted);
+}
+
+.modal input,
+.modal textarea {
+  width: 100%;
+  margin-top: 0.2rem;
+  padding: 0.4rem;
+  background: #0f131b;
+  border: 1px solid #222;
+  color: white;
+  border-radius: 5px;
+}
+
+.modal-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
