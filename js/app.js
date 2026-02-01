@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnTicket = document.getElementById("btn-new-ticket");
   const btnCancel = document.getElementById("btn-cancel");
   const btnImport = document.getElementById("btn-import");
+  const btnExport = document.getElementById("btn-export");
   const fileInput = document.getElementById("file-input");
   const form = document.getElementById("case-form");
   const modal = document.getElementById("modal-overlay");
@@ -15,13 +16,28 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+    // EXPORT MODE
+    if (modalTitle.textContent.includes("Exportar")) {
+      const formData = new FormData(form);
+      const mode = formData.get("dateMode");
+      let date;
+      if (mode === "custom") {
+        const custom = formData.get("customDate");
+        if (!custom) return alert("Selecciona una fecha");
+        date = formatDate(custom);
+      } else {
+        date = formatDate(new Date());
+      }
+      exportAllCasesToTxt(date);
+      closeModal();
+      return;
+    }
+    // NORMAL CASE SAVE
     const data = Object.fromEntries(new FormData(form));
     data.tipo = data.tipo || "BBDD";
     let cases = loadCases();
     if (data.id) {
-      cases = cases.map((c) =>
-        c.id === data.id ? data : c
-      );
+      cases = cases.map((c) => (c.id === data.id ? data : c));
     } else {
       data.id = crypto.randomUUID();
       cases.push(data);
@@ -31,6 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCases();
   });
   btnImport.addEventListener("click", () => fileInput.click());
+  btnExport.addEventListener("click", () => {
+    openExportModal();
+  });
   fileInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -44,3 +63,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   renderCases();
 });
+
+function formatDate(date) {
+  const d = new Date(date);
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const year = d.getFullYear();
+  return `${day}-${month}-${year}`;
+}
