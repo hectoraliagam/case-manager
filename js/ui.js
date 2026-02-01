@@ -36,9 +36,7 @@ function renderCaseCard(data) {
 
 function openModal(tipo, data = {}) {
   modal.classList.remove("hidden");
-  modalTitle.textContent = data.id
-    ? "Editar Caso"
-    : `Nuevo Caso ${tipo}`;
+  modalTitle.textContent = data.id ? "Editar Caso" : `Nuevo Caso ${tipo}`;
   formFields.innerHTML = generateForm(tipo, data);
 }
 
@@ -49,15 +47,50 @@ function closeModal() {
 }
 
 function generateForm(tipo, data) {
+  const isBbdd = tipo === "BBDD";
   return `
     <input type="hidden" name="id" value="${data.id || ""}">
     <input type="hidden" name="tipo" value="${tipo}">
-    <label>Nombre</label>
-    <input name="nombre" required value="${data.nombre || ""}">
-    <label>Customer ID</label>
-    <input name="customerId" value="${data.customerId || ""}">
-    <label>Observaciones</label>
-    <textarea name="observaciones">${data.observaciones || ""}</textarea>
+    ${input("Nombre", "nombre", data.nombre, true)}
+    ${input("Customer ID", "customerId", data.customerId)}
+    ${isBbdd ? input("ID Caso", "idCaso", data.idCaso) : ""}
+    ${!isBbdd ? input("Nro Ticket", "nroTicket", data.nroTicket) : ""}
+    ${input("DNI / RUC", "dniRuc", data.dniRuc)}
+    ${input("Teléfono", "telefono", data.telefono)}
+    ${input("Teléfono Fijo", "telefonoFijo", data.telefonoFijo)}
+    ${input("Tecnología", "tecnologia", data.tecnologia)}
+    ${input("IP", "ip", data.ip)}
+    ${input("SOT Provisión", "sotProvision", data.sotProvision)}
+    ${input("SOT Generada", "sotGenerada", data.sotGenerada)}
+    ${input("Remedy", "remedy", data.remedy)}
+    ${
+      isBbdd
+        ? `
+          ${textarea("Problema Front", "problemaFront", data.problemaFront)}
+          ${textarea("Problema Back", "problemaBack", data.problemaBack)}
+          ${input("Plantilla", "plantilla", data.plantilla)}
+        `
+        : textarea("Problema", "problema", data.problema)
+    }
+    ${textarea("Observaciones", "observaciones", data.observaciones)}
+  `;
+}
+
+function input(label, name, value = "", required = false) {
+  return `
+    <label>${label}</label>
+    <input 
+      name="${name}" 
+      value="${value || ""}" 
+      ${required ? "required" : ""}
+    >
+  `;
+}
+
+function textarea(label, name, value = "") {
+  return `
+    <label>${label}</label>
+    <textarea name="${name}">${value || ""}</textarea>
   `;
 }
 
