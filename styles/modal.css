@@ -1,0 +1,63 @@
+/* OVERLAY */
+#modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#modal-overlay:not(.hidden) {
+  display: flex;
+}
+
+/* MODAL */
+.modal {
+  background: var(--bg-modal);
+  padding: 1.5rem;
+  width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.modal h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+/* FORM */
+.modal label {
+  display: block;
+  font-size: 0.8rem;
+  margin-top: 0.9rem;
+  color: var(--text-muted);
+}
+
+.modal input,
+.modal textarea {
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.45rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border-soft);
+  color: var(--text-main);
+  border-radius: var(--radius-sm);
+}
+
+.modal-actions {
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.modal-actions button {
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+}
