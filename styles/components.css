@@ -1,0 +1,68 @@
+/* ACTION BUTTONS */
+.actions button {
+  margin-left: 0.5rem;
+  padding: 0.55rem 1rem;
+  background: #1f2430;
+  border: 1px solid var(--border-soft);
+  color: var(--text-main);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition:
+    background 0.2s ease,
+    border 0.2s ease;
+}
+
+.actions button:hover {
+  background: #2a3040;
+}
+
+/* CARD */
+.case-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  border-left: 5px solid transparent;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.15s ease;
+}
+
+.case-card:hover {
+  transform: translateY(-2px);
+}
+
+.case-card.bbdd {
+  border-color: var(--accent-bbdd);
+}
+
+.case-card.ticket {
+  border-color: var(--accent-ticket);
+}
+
+.case-card h3 {
+  margin: 0 0 0.4rem 0;
+  font-size: 1rem;
+}
+
+.case-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* CARD ACTIONS */
+.card-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-actions button {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.card-actions button:hover {
+  color: var(--text-main);
+}
