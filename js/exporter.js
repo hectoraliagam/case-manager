@@ -5,7 +5,10 @@ function exportCaseToTxt(data, numero) {
     txt += `ID_CASO: ${data.idCaso || ""}\n`;
   }
   txt += `CUSTOMER_ID: ${data.customerId || ""}\n`;
-  if (data.tipo === "TICKET") {
+  if (data.tipo === "BBDD") {
+    txt += `FECHA_DERIVACION: ${data.fechaDerivacion || ""}\n`;
+    txt += `FECHA_CIERRE: ${data.fechaCierre || ""}\n`;
+  } else {
     txt += `NRO_TICKET: ${data.nroTicket || ""}\n`;
   }
   txt += `NOMBRE: ${data.nombre || ""}\n`;
@@ -15,16 +18,18 @@ function exportCaseToTxt(data, numero) {
   txt += `TELEFONO_FIJO: ${data.telefonoFijo || ""}\n`;
   txt += `IP: ${data.ip || ""}\n`;
   txt += `SOT_PROVISION: ${data.sotProvision || ""}\n`;
-  txt += `SOT_GENERADA: ${data.sotGenerada || ""}\n`;
-  txt += `REMEDY: ${data.remedy || ""}\n`;
   if (data.tipo === "BBDD") {
     txt += `PROBLEMA_FRONT: ${data.problemaFront || ""}\n`;
     txt += `PROBLEMA_BACK: ${data.problemaBack || ""}\n`;
-    txt += `PLANTILLA: ${data.plantilla || ""}\n`;
   } else {
     txt += `PROBLEMA: ${data.problema || ""}\n`;
   }
+  txt += `SOT_GENERADA: ${data.sotGenerada || ""}\n`;
+  txt += `REMEDY: ${data.remedy || ""}\n`;
   txt += `OBSERVACIONES: ${data.observaciones || ""}\n`;
+  if (data.tipo === "BBDD") {
+    txt += `PLANTILLA: ${data.plantilla || ""}\n`;
+  }
   return txt;
 }
 
@@ -46,6 +51,5 @@ function exportAllCasesToTxt(date) {
       content += "\n--------------------------\n\n";
     }
   });
-  const filename = `anotaciones-${date}.txt`;
-  downloadTxt(content, filename);
+  downloadTxt(content, `anotaciones-${date}.txt`);
 }

@@ -46,51 +46,63 @@ function closeModal() {
   formFields.innerHTML = "";
 }
 
-function generateForm(tipo, data) {
+function generateForm(tipo, data = {}) {
   const isBbdd = tipo === "BBDD";
   return `
     <input type="hidden" name="id" value="${data.id || ""}">
     <input type="hidden" name="tipo" value="${tipo}">
+    ${isBbdd ? input("ID Caso", "idCaso", data.idCaso, false, "number") : ""}
+    ${input("Customer ID", "customerId", data.customerId, false, "number")}
+    ${
+      isBbdd
+        ? `
+          ${input("Fecha Derivación", "fechaDerivacion", data.fechaDerivacion)}
+          ${input("Fecha Cierre", "fechaCierre", data.fechaCierre)}
+        `
+        : input("Nro Ticket", "nroTicket", data.nroTicket, false, "number")
+    }
     ${input("Nombre", "nombre", data.nombre, true)}
-    ${input("Customer ID", "customerId", data.customerId)}
-    ${isBbdd ? input("ID Caso", "idCaso", data.idCaso) : ""}
-    ${!isBbdd ? input("Nro Ticket", "nroTicket", data.nroTicket) : ""}
-    ${input("DNI / RUC", "dniRuc", data.dniRuc)}
-    ${input("Teléfono", "telefono", data.telefono)}
-    ${input("Teléfono Fijo", "telefonoFijo", data.telefonoFijo)}
+    ${input("DNI / RUC", "dniRuc", data.dniRuc, false, "number")}
+    ${input("Teléfono", "telefono", data.telefono, false, "number")}
     ${input("Tecnología", "tecnologia", data.tecnologia)}
-    ${input("IP", "ip", data.ip)}
-    ${input("SOT Provisión", "sotProvision", data.sotProvision)}
-    ${input("SOT Generada", "sotGenerada", data.sotGenerada)}
-    ${input("Remedy", "remedy", data.remedy)}
+    ${input("Teléfono Fijo", "telefonoFijo", data.telefonoFijo, false, "number")}
+    ${input("Dirección IP", "ip", data.ip)}
+    ${input("SOT Provisión Fija", "sotProvision", data.sotProvision, false, "number")}
     ${
       isBbdd
         ? `
           ${textarea("Problema Front", "problemaFront", data.problemaFront)}
           ${textarea("Problema Back", "problemaBack", data.problemaBack)}
-          ${input("Plantilla", "plantilla", data.plantilla)}
         `
         : textarea("Problema", "problema", data.problema)
     }
+    ${input("SOT Generada", "sotGenerada", data.sotGenerada, false, "number")}
+    ${input("REMEDY Generada", "remedy", data.remedy)}
     ${textarea("Observaciones", "observaciones", data.observaciones)}
+    ${isBbdd ? textarea("Plantilla", "plantilla", data.plantilla) : ""}
   `;
 }
 
-function input(label, name, value = "", required = false) {
+function input(label, name, value = "", required = false, type = "text") {
   return `
-    <label>${label}</label>
-    <input 
-      name="${name}" 
-      value="${value || ""}" 
-      ${required ? "required" : ""}
-    >
+    <div class="field">
+      <label>${label}</label>
+      <input 
+        type="${type}" 
+        name="${name}" 
+        value="${value || ""}" 
+        ${required ? "required" : ""}
+      >
+    </div>
   `;
 }
 
 function textarea(label, name, value = "") {
   return `
-    <label>${label}</label>
-    <textarea name="${name}">${value || ""}</textarea>
+    <div class="field field-textarea">
+      <label>${label}</label>
+      <textarea name="${name}" rows="4">${value || ""}</textarea>
+    </div>
   `;
 }
 

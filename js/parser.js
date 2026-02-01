@@ -9,14 +9,17 @@ function parseTxtCase(text) {
       case "TIPO":
         data.tipo = value;
         break;
-      case "CASO":
-        data.casoNumero = value;
-        break;
       case "ID_CASO":
         data.idCaso = value;
         break;
       case "CUSTOMER_ID":
         data.customerId = value;
+        break;
+      case "FECHA_DERIVACION":
+        data.fechaDerivacion = value;
+        break;
+      case "FECHA_CIERRE":
+        data.fechaCierre = value;
         break;
       case "NRO_TICKET":
         data.nroTicket = value;
@@ -48,14 +51,14 @@ function parseTxtCase(text) {
       case "REMEDY":
         data.remedy = value;
         break;
-      case "PROBLEMA":
-        data.problema = value;
-        break;
       case "PROBLEMA_FRONT":
         data.problemaFront = value;
         break;
       case "PROBLEMA_BACK":
         data.problemaBack = value;
+        break;
+      case "PROBLEMA":
+        data.problema = value;
         break;
       case "OBSERVACIONES":
         data.observaciones = value;
@@ -75,6 +78,5 @@ function parseTxtCases(text) {
     .split(/--- CASO.*---/)
     .map((b) => b.trim())
     .filter(Boolean);
-
-  return blocks.map((block) => parseTxtCase(block));
+  return blocks.map(parseTxtCase);
 }
