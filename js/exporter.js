@@ -1,34 +1,43 @@
+function block(key, value) {
+  if (!value) return `${key}:\n<<<\n>>>\n`;
+  return `${key}:\n<<<\n${value}\n>>>\n`;
+}
+
+function line(key, value) {
+  return `${key}: ${value || ""}\n`;
+}
+
 function exportCaseToTxt(data, numero) {
   let txt = `--- CASO ${numero} ---\n`;
-  txt += `TIPO: ${data.tipo}\n`;
+  txt += line("TIPO", data.tipo);
   if (data.tipo === "BBDD") {
-    txt += `ID_CASO: ${data.idCaso || ""}\n`;
+    txt += line("ID_CASO", data.idCaso);
   }
-  txt += `CUSTOMER_ID: ${data.customerId || ""}\n`;
+  txt += line("CUSTOMER_ID", data.customerId);
   if (data.tipo === "BBDD") {
-    txt += `FECHA_DERIVACION: ${data.fechaDerivacion || ""}\n`;
-    txt += `FECHA_CIERRE: ${data.fechaCierre || ""}\n`;
+    txt += line("FECHA_DERIVACION", data.fechaDerivacion);
+    txt += line("FECHA_CIERRE", data.fechaCierre);
   } else {
-    txt += `NRO_TICKET: ${data.nroTicket || ""}\n`;
+    txt += line("NRO_TICKET", data.nroTicket);
   }
-  txt += `NOMBRE: ${data.nombre || ""}\n`;
-  txt += `DNI_RUC: ${data.dniRuc || ""}\n`;
-  txt += `TELEFONO: ${data.telefono || ""}\n`;
-  txt += `TECNOLOGIA: ${data.tecnologia || ""}\n`;
-  txt += `TELEFONO_FIJO: ${data.telefonoFijo || ""}\n`;
-  txt += `IP: ${data.ip || ""}\n`;
-  txt += `SOT_PROVISION: ${data.sotProvision || ""}\n`;
+  txt += line("NOMBRE", data.nombre);
+  txt += line("DNI_RUC", data.dniRuc);
+  txt += line("TELEFONO", data.telefono);
+  txt += line("TECNOLOGIA", data.tecnologia);
+  txt += line("TELEFONO_FIJO", data.telefonoFijo);
+  txt += line("IP", data.ip);
+  txt += line("SOT_PROVISION", data.sotProvision);
   if (data.tipo === "BBDD") {
-    txt += `PROBLEMA_FRONT: ${data.problemaFront || ""}\n`;
-    txt += `PROBLEMA_BACK: ${data.problemaBack || ""}\n`;
+    txt += block("PROBLEMA_FRONT", data.problemaFront);
+    txt += block("PROBLEMA_BACK", data.problemaBack);
   } else {
-    txt += `PROBLEMA: ${data.problema || ""}\n`;
+    txt += block("PROBLEMA", data.problema);
   }
-  txt += `SOT_GENERADA: ${data.sotGenerada || ""}\n`;
-  txt += `REMEDY: ${data.remedy || ""}\n`;
-  txt += `OBSERVACIONES: ${data.observaciones || ""}\n`;
+  txt += line("SOT_GENERADA", data.sotGenerada);
+  txt += line("REMEDY", data.remedy);
+  txt += block("OBSERVACIONES", data.observaciones);
   if (data.tipo === "BBDD") {
-    txt += `PLANTILLA: ${data.plantilla || ""}\n`;
+    txt += block("PLANTILLA", data.plantilla);
   }
   return txt;
 }

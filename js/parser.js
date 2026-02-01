@@ -1,82 +1,67 @@
 function parseTxtCase(text) {
   const lines = text.split("\n");
   const data = {};
-  lines.forEach((line) => {
-    if (!line.includes(":")) return;
-    const [key, ...rest] = line.split(":");
-    const value = rest.join(":").trim();
-    switch (key.trim()) {
-      case "TIPO":
-        data.tipo = value;
-        break;
-      case "ID_CASO":
-        data.idCaso = value;
-        break;
-      case "CUSTOMER_ID":
-        data.customerId = value;
-        break;
-      case "FECHA_DERIVACION":
-        data.fechaDerivacion = value;
-        break;
-      case "FECHA_CIERRE":
-        data.fechaCierre = value;
-        break;
-      case "NRO_TICKET":
-        data.nroTicket = value;
-        break;
-      case "NOMBRE":
-        data.nombre = value;
-        break;
-      case "DNI_RUC":
-        data.dniRuc = value;
-        break;
-      case "TELEFONO":
-        data.telefono = value;
-        break;
-      case "TECNOLOGIA":
-        data.tecnologia = value;
-        break;
-      case "TELEFONO_FIJO":
-        data.telefonoFijo = value;
-        break;
-      case "IP":
-        data.ip = value;
-        break;
-      case "SOT_PROVISION":
-        data.sotProvision = value;
-        break;
-      case "SOT_GENERADA":
-        data.sotGenerada = value;
-        break;
-      case "REMEDY":
-        data.remedy = value;
-        break;
-      case "PROBLEMA_FRONT":
-        data.problemaFront = value;
-        break;
-      case "PROBLEMA_BACK":
-        data.problemaBack = value;
-        break;
-      case "PROBLEMA":
-        data.problema = value;
-        break;
-      case "OBSERVACIONES":
-        data.observaciones = value;
-        break;
-      case "PLANTILLA":
-        data.plantilla = value;
-        break;
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i].trim();
+    if (!line.includes(":")) {
+      i++;
+      continue;
     }
-  });
+    const [rawKey, rest] = line.split(":");
+    const key = rawKey.trim();
+    const value = rest.trim();
+    // MULTILÍNEA
+    if (value === "" && lines[i + 1]?.trim() === "<<<") {
+      i += 2;
+      let buffer = [];
+      while (i < lines.length && lines[i].trim() !== ">>>") {
+        buffer.push(lines[i]);
+        i++;
+      }
+      data[mapKey(key)] = buffer.join("\n").trim();
+      i++;
+      continue;
+    }
+    // UNA LÍNEA
+    data[mapKey(key)] = value;
+    i++;
+  }
   data.tipo = data.tipo || "BBDD";
   data.id = crypto.randomUUID();
   return data;
 }
 
+function mapKey(key) {
+  const map = {
+    TIPO: "tipo",
+    ID_CASO: "idCaso",
+    CUSTOMER_ID: "customerId",
+    FECHA_DERIVACION: "fechaDerivacion",
+    FECHA_CIERRE: "fechaCierre",
+    NRO_TICKET: "nroTicket",
+    NOMBRE: "nombre",
+    DNI_RUC: "dniRuc",
+    TELEFONO: "telefono",
+    TECNOLOGIA: "tecnologia",
+    TELEFONO_FIJO: "telefonoFijo",
+    IP: "ip",
+    SOT_PROVISION: "sotProvision",
+    PROBLEMA_FRONT: "problemaFront",
+    PROBLEMA_BACK: "problemaBack",
+    PROBLEMA: "problema",
+    SOT_GENERADA: "sotGenerada",
+    REMEDY: "remedy",
+    OBSERVACIONES: "observaciones",
+    PLANTILLA: "plantilla",
+  };
+  return map[key] || key.toLowerCase();
+}
+
 function parseTxtCases(text) {
-  const blocks = text
+  return text
     .split(/--- CASO.*---/)
     .map((b) => b.trim())
-    .filter(Boolean);
-  return blocks.map(parseTxtCase);
+    .filter(Boolean)
+    .map(parseTxtCase);
 }
