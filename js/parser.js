@@ -69,3 +69,12 @@ function parseTxtCase(text) {
   data.id = crypto.randomUUID();
   return data;
 }
+
+function parseTxtCases(text) {
+  const blocks = text
+    .split(/--- CASO.*---/)
+    .map((b) => b.trim())
+    .filter(Boolean);
+
+  return blocks.map((block) => parseTxtCase(block));
+}

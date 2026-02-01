@@ -1,7 +1,6 @@
-function exportCaseToTxt(data) {
-  let txt = `--- CASO ---\n`;
+function exportCaseToTxt(data, numero) {
+  let txt = `--- CASO ${numero} ---\n`;
   txt += `TIPO: ${data.tipo}\n`;
-  txt += `CASO: ${data.casoNumero || ""}\n`;
   if (data.tipo === "BBDD") {
     txt += `ID_CASO: ${data.idCaso || ""}\n`;
   }
@@ -42,7 +41,7 @@ function exportAllCasesToTxt(date) {
   if (!cases.length) return alert("No hay casos para exportar");
   let content = "";
   cases.forEach((c, i) => {
-    content += exportCaseToTxt(c);
+    content += exportCaseToTxt(c, i + 1);
     if (i < cases.length - 1) {
       content += "\n--------------------------\n\n";
     }
