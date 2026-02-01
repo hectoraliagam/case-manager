@@ -1,6 +1,6 @@
 const STORAGE_KEY = "case_manager_cases";
 
-function loadCases() {
+export function loadCases() {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   } catch {
@@ -8,17 +8,17 @@ function loadCases() {
   }
 }
 
-function saveCases(cases) {
+export function saveCases(cases) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(cases));
 }
 
-function addCase(caseData) {
+export function addCase(caseData) {
   const cases = loadCases();
   cases.push(caseData);
   saveCases(cases);
 }
 
-function deleteCase(id) {
+export function deleteCase(id) {
   const cases = loadCases().filter((c) => c.id !== id);
   saveCases(cases);
 }
