@@ -23,7 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
       let date;
       if (mode === "custom") {
         const custom = formData.get("customDate");
-        if (!custom) return alert("Selecciona una fecha");
+        if (!custom) {
+          alert("Selecciona una fecha");
+          return;
+        }
         date = formatDate(custom);
       } else {
         date = formatDate(new Date());
@@ -46,24 +49,27 @@ document.addEventListener("DOMContentLoaded", () => {
     closeModal();
     renderCases();
   });
+  // IMPORT TXT
   btnImport.addEventListener("click", () => fileInput.click());
-  btnExport.addEventListener("click", () => {
-    openExportModal();
-  });
   fileInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onload = () => {
-      const data = parseTxtCase(reader.result);
-      addCase(data);
+      const cases = parseTxtCases(reader.result);
+      cases.forEach((c) => addCase(c));
       renderCases();
     };
     reader.readAsText(file);
   });
+  // EXPORT BUTTON
+  btnExport.addEventListener("click", () => {
+    openExportModal();
+  });
   renderCases();
 });
 
+// HELPERS
 function formatDate(date) {
   const d = new Date(date);
   const day = String(d.getDate()).padStart(2, "0");

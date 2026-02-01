@@ -13,15 +13,15 @@ function initUI() {
 
 function renderCases() {
   container.innerHTML = "";
-  loadCases().forEach(renderCaseCard);
+  loadCases().forEach((c, i) => renderCaseCard(c, i + 1));
 }
 
-function renderCaseCard(data) {
+function renderCaseCard(data, numero) {
   const card = document.createElement("div");
   const tipo = (data.tipo || "BBDD").toLowerCase();
   card.className = `case-card ${tipo}`;
   card.innerHTML = `
-    <h3>${data.nombre || "Sin nombre"}</h3>
+    <h3>#${numero} - ${data.nombre || "Sin nombre"}</h3>
     <div class="case-meta">
       <div>${data.tipo}</div>
       <div>Customer ID: ${data.customerId || "-"}</div>
