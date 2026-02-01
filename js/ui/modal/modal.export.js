@@ -1,13 +1,13 @@
-import { modal, modalTitle, formFields, modalFooter } from "../ui.init.js";
-import { closeModal, setModalMode } from "./modal.base.js";
+// ui/modal/modal.export.js
+
+import { modal, formFields, modalFooter } from "../ui.init.js";
+import { setModalMode, closeModal, openModalOverlay } from "./modal.base.js";
 
 export function openExportModal() {
   const form = document.getElementById("case-form");
-  modal.classList.remove("hidden");
-  modalTitle.textContent = "Exportar anotaciones";
+  openModalOverlay("Exportar anotaciones");
   setModalMode("export");
-  form.reset();
-  form.onsubmit = null;
+
   formFields.innerHTML = `
     <div class="export-box">
       <div class="export-options">
@@ -26,14 +26,17 @@ export function openExportModal() {
     </div>
   `;
   modalFooter.innerHTML = `
-    <button type="button" id="cancel-export">Cancelar</button>
-    <button type="submit" class="primary">Exportar</button>
+    <div class="modal-actions">
+      <button type="button" id="cancel-export">Cancelar</button>
+      <button type="submit" class="primary">Exportar</button>
+    </div>
   `;
-  modalFooter.classList.remove("hidden");
   document.getElementById("cancel-export").onclick = closeModal;
+
   const radios = formFields.querySelectorAll("input[name='dateMode']");
   const dateBox = formFields.querySelector(".custom-date");
   const options = formFields.querySelectorAll(".radio-option");
+
   radios.forEach((radio, i) => {
     radio.addEventListener("change", () => {
       options.forEach((o) => o.classList.remove("active"));

@@ -1,3 +1,5 @@
+// ui/ui.actions.js
+
 import { loadCases, deleteCase } from "../data/cases.store.js";
 import { openModal } from "./modal/modal.form.js";
 import { openConfirmModal } from "./modal/modal.confirm.js";

@@ -1,3 +1,5 @@
+// parser.js
+
 export function parseTxtCase(text) {
   const lines = text.split("\n");
   const data = {};

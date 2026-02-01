@@ -1,19 +1,22 @@
-import { modal, modalTitle, formFields, modalFooter } from "../ui.init.js";
-import { setModalMode, closeModal } from "./modal.base.js";
+// ui/modal/modal.form.js
 
-export function openModal(tipo, data = {}) {
+import { modal, formFields, modalFooter } from "../ui.init.js";
+import { setModalMode, closeModal, openModalOverlay } from "./modal.base.js";
+
+export function openFormModal(tipo, data = {}) {
   const form = document.getElementById("case-form");
-  modal.classList.remove("hidden");
-  modalTitle.textContent = data.id ? "Editar Caso" : `Nuevo Caso ${tipo}`;
+  const title = data.id ? "Editar Caso" : `Nuevo Caso ${tipo}`;
+  openModalOverlay(title);
   setModalMode("form");
-  form.reset();
-  form.onsubmit = null;
+
   formFields.innerHTML = generateForm(tipo, data);
   modalFooter.innerHTML = `
-    <button type="button" id="cancel-modal">Cancelar</button>
-    <button type="submit" class="primary">Guardar</button>
+    <div class="modal-actions">
+      <button type="button" id="cancel-modal">Cancelar</button>
+      <button type="submit" class="primary">Guardar</button>
+    </div>
   `;
-  modalFooter.classList.remove("hidden");
+
   document.getElementById("cancel-modal").onclick = closeModal;
 }
 
@@ -24,12 +27,10 @@ function generateForm(tipo, data = {}) {
     <input type="hidden" name="tipo" value="${tipo}">
     ${isBbdd ? input("ID Caso", "idCaso", data.idCaso, false, "number") : ""}
     ${input("Customer ID", "customerId", data.customerId, true, "number")}
-    ${
-      isBbdd
-        ? `${input("Fecha Derivación", "fechaDerivacion", data.fechaDerivacion)}
-           ${input("Fecha Cierre", "fechaCierre", data.fechaCierre)}`
-        : input("Nro Ticket", "nroTicket", data.nroTicket, true, "number")
-    }
+    ${isBbdd
+      ? `${input("Fecha Derivación", "fechaDerivacion", data.fechaDerivacion)}
+         ${input("Fecha Cierre", "fechaCierre", data.fechaCierre)}`
+      : input("Nro Ticket", "nroTicket", data.nroTicket, true, "number")}
     ${input("Nombre", "nombre", data.nombre, true)}
     ${input("DNI / RUC", "dniRuc", data.dniRuc, false, "number")}
     ${input("Teléfono", "telefono", data.telefono, false, "number")}
@@ -37,12 +38,10 @@ function generateForm(tipo, data = {}) {
     ${input("Teléfono Fijo", "telefonoFijo", data.telefonoFijo, false, "number")}
     ${input("Dirección IP", "ip", data.ip)}
     ${input("SOT Provisión Fija", "sotProvision", data.sotProvision, false, "number")}
-    ${
-      isBbdd
-        ? `${textarea("Problema Front", "problemaFront", data.problemaFront)}
-           ${textarea("Problema Back", "problemaBack", data.problemaBack)}`
-        : textarea("Problema", "problema", data.problema)
-    }
+    ${isBbdd
+      ? `${textarea("Problema Front", "problemaFront", data.problemaFront)}
+         ${textarea("Problema Back", "problemaBack", data.problemaBack)}`
+      : textarea("Problema", "problema", data.problema)}
     ${input("SOT Generada", "sotGenerada", data.sotGenerada, false, "number")}
     ${input("REMEDY Generada", "remedy", data.remedy)}
     ${textarea("Observaciones", "observaciones", data.observaciones)}

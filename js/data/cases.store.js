@@ -22,3 +22,14 @@ export function deleteCase(id) {
   const cases = loadCases().filter((c) => c.id !== id);
   saveCases(cases);
 }
+
+export function upsertCase(caseData) {
+  const cases = loadCases();
+  const index = cases.findIndex((c) => c.id === caseData.id);
+  if (index !== -1) {
+    cases[index] = caseData;
+  } else {
+    cases.push(caseData);
+  }
+  saveCases(cases);
+}

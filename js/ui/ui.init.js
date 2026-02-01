@@ -1,3 +1,5 @@
+// ui/ui.init.js
+
 export let container;
 export let modal;
 export let modalTitle;

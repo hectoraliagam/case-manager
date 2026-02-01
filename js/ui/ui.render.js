@@ -1,3 +1,5 @@
+// ui/ui.render.js
+
 import { container } from "./ui.init.js";
 import { editCase, removeCaseConfirm } from "./ui.actions.js";
 import { loadCases } from "../data/cases.store.js";
