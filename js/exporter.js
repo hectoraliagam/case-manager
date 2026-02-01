@@ -1,6 +1,7 @@
+import { loadCases } from "./data/cases.store.js";
+
 function block(key, value) {
-  if (!value) return `${key}:\n<<<\n>>>\n`;
-  return `${key}:\n<<<\n${value}\n>>>\n`;
+  return `${key}:\n<<<\n` + `${value ? value.trim() : ""}\n` + `>>>\n`;
 }
 
 function line(key, value) {
@@ -48,11 +49,15 @@ function downloadTxt(content, filename) {
   a.href = URL.createObjectURL(blob);
   a.download = filename;
   a.click();
+  URL.revokeObjectURL(a.href);
 }
 
-function exportAllCasesToTxt(date) {
+export function exportAllCasesToTxt(date) {
   const cases = loadCases();
-  if (!cases.length) return alert("No hay casos para exportar");
+  if (!cases.length) {
+    alert("No hay casos para exportar");
+    return;
+  }
   let content = "";
   cases.forEach((c, i) => {
     content += exportCaseToTxt(c, i + 1);

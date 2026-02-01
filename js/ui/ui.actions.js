@@ -1,5 +1,6 @@
 import { loadCases, deleteCase } from "../data/cases.store.js";
-import { openModal } from "./ui.modal.js";
+import { openModal } from "./modal/modal.form.js";
+import { openConfirmModal } from "./modal/modal.confirm.js";
 import { renderCases } from "./ui.render.js";
 
 export function editCase(id) {
@@ -10,4 +11,12 @@ export function editCase(id) {
 export function removeCase(id) {
   deleteCase(id);
   renderCases();
+}
+
+export function removeCaseConfirm(id) {
+  openConfirmModal({
+    title: "Eliminar caso",
+    message: "¿Seguro que deseas eliminar este caso?",
+    onConfirm: () => removeCase(id),
+  });
 }

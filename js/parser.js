@@ -1,4 +1,4 @@
-function parseTxtCase(text) {
+export function parseTxtCase(text) {
   const lines = text.split("\n");
   const data = {};
   let i = 0;
@@ -8,13 +8,13 @@ function parseTxtCase(text) {
       i++;
       continue;
     }
-    const [rawKey, rest] = line.split(":");
+    const [rawKey, ...rest] = line.split(":");
     const key = rawKey.trim();
-    const value = rest.trim();
+    const value = rest.join(":").trim();
     // MULTILÍNEA
     if (value === "" && lines[i + 1]?.trim() === "<<<") {
       i += 2;
-      let buffer = [];
+      const buffer = [];
       while (i < lines.length && lines[i].trim() !== ">>>") {
         buffer.push(lines[i]);
         i++;
@@ -58,7 +58,7 @@ function mapKey(key) {
   return map[key] || key.toLowerCase();
 }
 
-function parseTxtCases(text) {
+export function parseTxtCases(text) {
   return text
     .split(/--- CASO.*---/)
     .map((b) => b.trim())

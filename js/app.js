@@ -1,3 +1,13 @@
+import { loadCases, saveCases, addCase } from "./data/cases.store.js";
+import { formatDate } from "./helpers/date.js";
+import { initUI } from "./ui/ui.init.js";
+import { renderCases } from "./ui/ui.render.js";
+import { parseTxtCases } from "./parser.js";
+import { exportAllCasesToTxt } from "./exporter.js";
+import { openModal } from "./ui/modal/modal.form.js";
+import { openExportModal } from "./ui/modal/modal.export.js";
+import { closeModal } from "./ui/modal/modal.base.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   initUI();
   const btnBbdd = document.getElementById("btn-new-bbdd");
@@ -7,21 +17,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnExport = document.getElementById("btn-export");
   const fileInput = document.getElementById("file-input");
   const form = document.getElementById("case-form");
-  const modal = document.getElementById("modal-overlay");
+  const modalOverlay = document.getElementById("modal-overlay");
   btnBbdd.addEventListener("click", () => openModal("BBDD"));
   btnTicket.addEventListener("click", () => openModal("TICKET"));
+  btnExport.addEventListener("click", openExportModal);
   btnCancel.addEventListener("click", closeModal);
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
+  modalOverlay.addEventListener("click", (e) => {
+    if (e.target === modalOverlay) closeModal();
   });
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    // EXPORT MODE
-    if (modalTitle.textContent.includes("Exportar")) {
+    const mode = form.dataset.mode;
+    if (mode === "confirm") return;
+    if (mode === "export") {
       const formData = new FormData(form);
-      const mode = formData.get("dateMode");
+      const dateMode = formData.get("dateMode");
       let date;
-      if (mode === "custom") {
+      if (dateMode === "custom") {
         const custom = formData.get("customDate");
         if (!custom) {
           alert("Selecciona una fecha");
@@ -35,21 +47,21 @@ document.addEventListener("DOMContentLoaded", () => {
       closeModal();
       return;
     }
-    // NORMAL CASE SAVE
-    const data = Object.fromEntries(new FormData(form));
-    data.tipo = data.tipo || "BBDD";
-    let cases = loadCases();
-    if (data.id) {
-      cases = cases.map((c) => (c.id === data.id ? data : c));
-    } else {
-      data.id = crypto.randomUUID();
-      cases.push(data);
+    if (mode === "form") {
+      const data = Object.fromEntries(new FormData(form));
+      data.tipo ||= "BBDD";
+      let cases = loadCases();
+      if (data.id) {
+        cases = cases.map((c) => (c.id === data.id ? data : c));
+      } else {
+        data.id = crypto.randomUUID();
+        cases.push(data);
+      }
+      saveCases(cases);
+      closeModal();
+      renderCases();
     }
-    saveCases(cases);
-    closeModal();
-    renderCases();
   });
-  // IMPORT TXT
   btnImport.addEventListener("click", () => fileInput.click());
   fileInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
@@ -62,18 +74,5 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     reader.readAsText(file);
   });
-  // EXPORT BUTTON
-  btnExport.addEventListener("click", () => {
-    openExportModal();
-  });
   renderCases();
 });
-
-// HELPERS
-function formatDate(date) {
-  const d = new Date(date);
-  const day = String(d.getDate()).padStart(2, "0");
-  const month = String(d.getMonth() + 1).padStart(2, "0");
-  const year = d.getFullYear();
-  return `${day}-${month}-${year}`;
-}

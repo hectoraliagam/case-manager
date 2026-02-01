@@ -29,7 +29,14 @@
   padding: 1rem;
   border-left: 5px solid transparent;
   box-shadow: var(--shadow-soft);
-  transition: transform 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
 }
 
 .case-card:hover {
@@ -70,4 +77,22 @@
 
 .card-actions button:hover {
   color: var(--text-main);
+}
+
+.btn-delete {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.btn-delete:hover {
+  opacity: 1;
+  color: #ff5f5f;
+}
+
+.card-content {
+  flex: 1;
 }

@@ -1,5 +1,5 @@
 import { container } from "./ui.init.js";
-import { editCase, removeCase } from "./ui.actions.js";
+import { editCase, removeCaseConfirm } from "./ui.actions.js";
 import { loadCases } from "../data/cases.store.js";
 
 export function renderCases() {
@@ -12,17 +12,21 @@ function renderCaseCard(data, numero) {
   const tipo = (data.tipo || "BBDD").toLowerCase();
   card.className = `case-card ${tipo}`;
   card.innerHTML = `
-    <h3>#${numero} - ${data.nombre || "Sin nombre"}</h3>
-    <div class="case-meta">
-      <div>${data.tipo}</div>
-      <div>Customer ID: ${data.customerId || "-"}</div>
+    <div class="card-content">
+      <h3>#${numero} - ${data.nombre || "Sin nombre"}</h3>
+      <div class="case-meta">
+        <span>${data.tipo}</span>
+        <span>Customer ID: ${data.customerId || "-"}</span>
+      </div>
     </div>
-    <div class="card-actions">
-      <button data-edit="${data.id}">✏️</button>
-      <button data-delete="${data.id}">🗑</button>
-    </div>
+    <button class="btn-delete" title="Eliminar">🗑</button>
   `;
-  card.querySelector("[data-edit]").onclick = () => editCase(data.id);
-  card.querySelector("[data-delete]").onclick = () => removeCase(data.id);
+  const content = card.querySelector(".card-content");
+  const btnDelete = card.querySelector(".btn-delete");
+  content.addEventListener("click", () => editCase(data.id));
+  btnDelete.addEventListener("click", (e) => {
+    e.stopPropagation();
+    removeCaseConfirm(data.id);
+  });
   container.appendChild(card);
 }

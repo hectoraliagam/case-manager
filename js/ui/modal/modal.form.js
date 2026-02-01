@@ -1,4 +1,23 @@
-export function generateForm(tipo, data = {}) {
+import { modal, modalTitle, formFields, modalFooter } from "../ui.init.js";
+import { setModalMode, closeModal } from "./modal.base.js";
+
+export function openModal(tipo, data = {}) {
+  const form = document.getElementById("case-form");
+  modal.classList.remove("hidden");
+  modalTitle.textContent = data.id ? "Editar Caso" : `Nuevo Caso ${tipo}`;
+  setModalMode("form");
+  form.reset();
+  form.onsubmit = null;
+  formFields.innerHTML = generateForm(tipo, data);
+  modalFooter.innerHTML = `
+    <button type="button" id="cancel-modal">Cancelar</button>
+    <button type="submit" class="primary">Guardar</button>
+  `;
+  modalFooter.classList.remove("hidden");
+  document.getElementById("cancel-modal").onclick = closeModal;
+}
+
+function generateForm(tipo, data = {}) {
   const isBbdd = tipo === "BBDD";
   return `
     <input type="hidden" name="id" value="${data.id || ""}">
@@ -7,10 +26,8 @@ export function generateForm(tipo, data = {}) {
     ${input("Customer ID", "customerId", data.customerId, true, "number")}
     ${
       isBbdd
-        ? `
-          ${input("Fecha Derivación", "fechaDerivacion", data.fechaDerivacion)}
-          ${input("Fecha Cierre", "fechaCierre", data.fechaCierre)}
-        `
+        ? `${input("Fecha Derivación", "fechaDerivacion", data.fechaDerivacion)}
+           ${input("Fecha Cierre", "fechaCierre", data.fechaCierre)}`
         : input("Nro Ticket", "nroTicket", data.nroTicket, true, "number")
     }
     ${input("Nombre", "nombre", data.nombre, true)}
@@ -22,10 +39,8 @@ export function generateForm(tipo, data = {}) {
     ${input("SOT Provisión Fija", "sotProvision", data.sotProvision, false, "number")}
     ${
       isBbdd
-        ? `
-          ${textarea("Problema Front", "problemaFront", data.problemaFront)}
-          ${textarea("Problema Back", "problemaBack", data.problemaBack)}
-        `
+        ? `${textarea("Problema Front", "problemaFront", data.problemaFront)}
+           ${textarea("Problema Back", "problemaBack", data.problemaBack)}`
         : textarea("Problema", "problema", data.problema)
     }
     ${input("SOT Generada", "sotGenerada", data.sotGenerada, false, "number")}
@@ -39,12 +54,7 @@ function input(label, name, value = "", required = false, type = "text") {
   return `
     <div class="field">
       <label>${label}</label>
-      <input
-        type="${type}"
-        name="${name}"
-        value="${value || ""}"
-        ${required ? "required" : ""}
-      >
+      <input type="${type}" name="${name}" value="${value || ""}" ${required ? "required" : ""}>
     </div>
   `;
 }

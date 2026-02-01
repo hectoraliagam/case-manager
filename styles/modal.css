@@ -62,6 +62,22 @@
   cursor: pointer;
 }
 
+.confirm-text {
+  margin: 1rem 0;
+  color: var(--text-muted);
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.confirm-actions .danger {
+  background: #ff4d4f;
+  color: white;
+}
+
 /* EXPORT */
 .export-box {
   margin-top: 0.5rem;
