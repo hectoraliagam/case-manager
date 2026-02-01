@@ -36,3 +36,17 @@ function downloadTxt(content, filename) {
   a.download = filename;
   a.click();
 }
+
+function exportAllCasesToTxt(date) {
+  const cases = loadCases();
+  if (!cases.length) return alert("No hay casos para exportar");
+  let content = "";
+  cases.forEach((c, i) => {
+    content += exportCaseToTxt(c);
+    if (i < cases.length - 1) {
+      content += "\n--------------------------\n\n";
+    }
+  });
+  const filename = `anotaciones-${date}.txt`;
+  downloadTxt(content, filename);
+}
