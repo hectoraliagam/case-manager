@@ -1,6 +1,7 @@
 // ui/modal/modal.form.js
 
 import { createModal, openModal, closeModal } from "./modal.base.js";
+import { ESTADOS, estadoLabel } from "../../helpers/states.js";
 
 export function openFormModal(tipo, data = {}, onSave) {
   const modalObj = createModal();
@@ -97,15 +98,13 @@ function generateForm(tipo, data = {}) {
     <div class="field">
       <label>Estado</label>
       <div class="estado-options">
-        ${["no-vista", "pendiente", "cerrada", "no-aplica"]
-          .map(
-            (e) => `
-          <button type="button" class="estado-btn ${data.estado === e ? "active" : ""}" data-estado="${e}">
-            ${estadoLabel(e)}
-          </button>
-        `,
-          )
-          .join("")}
+        ${ESTADOS.map(
+          (e) => `
+            <button type="button" class="estado-btn ${data.estado === e ? "active" : ""}" data-estado="${e}">
+              ${estadoLabel(e)}
+            </button>
+          `,
+        ).join("")}
         <input type="hidden" name="estado" value="${data.estado || "no-vista"}">
       </div>
     </div>
@@ -146,19 +145,4 @@ function textarea(label, name, value = "") {
       </div>
     </div>
   `;
-}
-
-function estadoLabel(e) {
-  switch (e) {
-    case "no-vista":
-      return "No vista";
-    case "pendiente":
-      return "Pendiente";
-    case "cerrada":
-      return "Cerrada";
-    case "no-aplica":
-      return "No aplica";
-    default:
-      return e;
-  }
 }

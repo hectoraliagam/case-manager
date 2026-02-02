@@ -3,6 +3,7 @@
 import { container } from "./ui.init.js";
 import { editCase, removeCaseConfirm } from "./ui.actions.js";
 import { loadCases } from "../data/cases.store.js";
+import { estadoLabel } from "../helpers/states.js";
 
 export function renderCases() {
   container.innerHTML = "";
@@ -12,6 +13,7 @@ export function renderCases() {
 function renderCaseCard(data, numero) {
   const card = document.createElement("div");
   const tipo = (data.tipo || "BBDD").toLowerCase();
+  const estado = data.estado || "no-vista";
   card.className = `case-card ${tipo}`;
   card.innerHTML = `
     <div class="card-content">
@@ -22,11 +24,14 @@ function renderCaseCard(data, numero) {
       </div>
     </div>
     <button class="btn-delete" title="Eliminar">🗑</button>
-    <span class="case-status ${data.estado || "no-vista"}"></span>
+    <span class="case-status ${estado}" title="${estadoLabel(estado)}"></span>
   `;
-  const content = card.querySelector(".card-content");
   const btnDelete = card.querySelector(".btn-delete");
-  content.addEventListener("click", () => editCase(data.id));
+  const statusCircle = card.querySelector(".case-status");
+  card.addEventListener("click", (e) => {
+    if (e.target === btnDelete || e.target === statusCircle) return;
+    editCase(data.id);
+  });
   btnDelete.addEventListener("click", (e) => {
     e.stopPropagation();
     removeCaseConfirm(data.id);
