@@ -3,6 +3,13 @@
 import { createModal, openModal, closeModal } from "./modal.base.js";
 import { ESTADOS, estadoLabel } from "../../helpers/states.js";
 
+function autoResizeTextarea(ta) {
+  ta.style.height = "auto";
+  const max = window.innerHeight * 0.4;
+  ta.style.height = Math.min(ta.scrollHeight, max) + "px";
+  ta.style.overflowY = ta.scrollHeight > max ? "auto" : "hidden";
+}
+
 export function openFormModal(tipo, data = {}, onSave) {
   const modalObj = createModal();
   const title = data.id ? "Editar Caso" : `Nuevo Caso ${tipo}`;
@@ -55,14 +62,15 @@ export function openFormModal(tipo, data = {}, onSave) {
       modalObj.formFields.querySelector('input[name="estado"]').value = estado;
     });
   });
-  modalObj.formFields.querySelectorAll("textarea").forEach((ta) => {
-    const resize = () => {
-      ta.style.height = "auto";
-      ta.style.height = ta.scrollHeight + "px";
-    };
-    ta.addEventListener("input", resize);
-    resize();
+  const textareas = modalObj.formFields.querySelectorAll("textarea");
+  textareas.forEach((ta) => {
+    autoResizeTextarea(ta);
+    ta.addEventListener("input", () => autoResizeTextarea(ta));
   });
+  const observer = new ResizeObserver(() => {
+    textareas.forEach(autoResizeTextarea);
+  });
+  observer.observe(modalObj.modalContent);
 }
 
 function generateForm(tipo, data = {}) {

@@ -61,8 +61,10 @@
 .field-wrapper textarea {
   resize: none;
   min-height: 36px;
-  max-height: 400px;
-  overflow-y: hidden;
+  max-height: 40vh;
+  overflow-y: auto;
+  line-height: 1.5;
+  transition: height 0.15s ease;
 }
 
 .field-wrapper input:focus,
