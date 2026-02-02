@@ -1,24 +1,98 @@
+/* variables.css */
+
 :root {
-  /* BACKGROUNDS */
-  --bg-main: #0f1115;
-  --bg-header: #0b0d12;
-  --bg-card: #161a22;
-  --bg-modal: #1c2230;
-  --bg-input: #0f131b;
+  /* ===== BACKGROUNDS ===== */
+  --bg-main: #0f1115;          /* Fondo general */
+  --bg-header: #0b0d12;        /* Header */
+  --bg-card: #161a22;          /* Cards / Cases */
+  --bg-modal: #1c2230;         /* Modales */
+  --bg-input: #0f131b;         /* Inputs y textareas */
+  --bg-button: #1f2430;        /* Botones generales */
+  --bg-button-hover: #2a3040;  /* Hover de botones */
+  --bg-radio-active: rgba(79, 195, 247, 0.08);
+  --bg-scrollbar-thumb: #2a3040;
+  --bg-scrollbar-thumb-hover: #3a4157;
 
-  /* ACCENTS */
-  --accent-bbdd: #c9a14a;
-  --accent-ticket: #4fc3f7;
+  /* ===== ACCENTS ===== */
+  --accent-bbdd: #c9a14a;      /* BBDD */
+  --accent-ticket: #4fc3f7;    /* Ticket */
+  --accent-primary: var(--accent-bbdd);
+  --accent-danger: #ff4d4f;
+  --accent-hover: #e6b947;
 
-  /* TEXT */
+  /* ===== TEXT ===== */
   --text-main: #e6e6e6;
   --text-muted: #9aa4b2;
+  --text-placeholder: #6b7280;
+  --text-button: #e6e6e6;
+  --text-button-hover: #fff;
+  --text-danger: #ff5f5f;
 
-  /* UI */
+  /* ===== BORDERS ===== */
   --border-soft: #222;
+  --border-input: var(--border-soft);
+  --border-card: transparent;
+  --border-radio: var(--border-soft);
+  --border-active: var(--accent-ticket);
+
+  /* ===== RADII ===== */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 12px;
 
+  /* ===== SHADOWS ===== */
   --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.45);
+
+  /* ===== BUTTONS ===== */
+  --btn-padding-y: 0.55rem;
+  --btn-padding-x: 1.1rem;
+  --btn-radius: var(--radius-sm);
+  --btn-font-size: 0.85rem;
+  --btn-transition: all 0.2s ease;
+
+  /* ===== MODALS ===== */
+  --modal-width: 520px;
+  --modal-max-width: 90%;
+  --modal-max-height: 90vh;
+  --modal-padding: 1.8rem;
+  --modal-gap: 1rem;
+
+  /* ===== FORM ELEMENTS ===== */
+  --input-padding-y: 0.55rem;
+  --input-padding-x: 0.6rem;
+  --input-font-size: 0.9rem;
+
+  /* ===== EXPORT MODAL ===== */
+  --export-gap: 0.6rem;
+  --export-radio-padding-y: 0.75rem;
+  --export-radio-padding-x: 1rem;
+  --export-radio-font-size: 0.9rem;
+
+  /* ===== CONFIRM MODAL ===== */
+  --confirm-gap: 0.8rem;
+  --confirm-text-size: 0.95rem;
+
+  /* ===== GRID ===== */
+  --grid-gap: 1.2rem;
+  --grid-min-card: 280px;
+
+  /* ===== SCROLLBAR ===== */
+  --scrollbar-width: 8px;
+  --scrollbar-radius: 6px;
+
+  /* ===== TRANSITIONS ===== */
+  --transition-fast: 0.15s ease;
+  --transition-medium: 0.2s ease;
+  --transition-modal: 0.25s ease;
+
+  /* ===== ICONS / FEEDBACK ===== */
+  --icon-color: var(--text-muted);
+  --icon-hover: var(--text-main);
+  --delete-hover: var(--text-danger);
+
+  /* ===== RESPONSIVE ===== */
+  --modal-width-mobile: 95%;
+  --modal-padding-mobile: 1.2rem;
+  --modal-title-font-mobile: 1.1rem;
 }
