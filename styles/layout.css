@@ -1,4 +1,6 @@
-/* HEADER */
+/* layout.css */
+
+/* ===== HEADER ===== */
 .app-header {
   padding: 1rem 2rem;
   background: var(--bg-header);
@@ -8,6 +10,16 @@
   gap: 1rem;
   border-bottom: 1px solid var(--border-soft);
   flex-wrap: wrap;
+  box-shadow: var(--shadow-soft);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.app-header:hover {
+  background: #0e1014; /* un sutil darken al hacer hover */
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
 }
 
 .app-header h1 {
@@ -15,18 +27,75 @@
   font-size: 1.4rem;
   font-weight: 600;
   white-space: nowrap;
+  color: var(--text-main);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  transition: color 0.2s ease;
 }
 
+.app-header h1:hover {
+  color: var(--accent-bbdd);
+}
+
+/* ===== ACTION BUTTONS ===== */
 .actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
 }
 
-/* GRID */
+.actions button {
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  background: var(--bg-button);
+  border: 1px solid var(--border-soft);
+  color: var(--text-button);
+  cursor: pointer;
+  border-radius: var(--btn-radius);
+  font-size: var(--btn-font-size);
+  transition: var(--btn-transition), transform var(--transition-fast);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.actions button:hover {
+  background: var(--bg-button-hover);
+  transform: translateY(-1px);
+  border-color: var(--accent-bbdd);
+}
+
+.actions button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+}
+
+/* ===== GRID ===== */
 .cases-grid {
   padding: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-min-card), 1fr));
+  gap: var(--grid-gap);
+  transition: all 0.2s ease;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0.8rem 1rem;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .app-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .cases-grid {
+    padding: 1rem;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .actions {
+    justify-content: center;
+    gap: 0.5rem;
+  }
 }
