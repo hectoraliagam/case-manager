@@ -50,7 +50,7 @@
 .form-fields {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 1rem;
 }
 
 .modal-footer {
@@ -63,7 +63,7 @@
 /* ===== FORM ELEMENTS ===== */
 .modal-content label {
   display: block;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   margin-bottom: 0.25rem;
   color: var(--text-muted);
   font-weight: 500;
@@ -72,41 +72,74 @@
 .modal-content input,
 .modal-content textarea {
   width: 100%;
-  padding: 0.6rem 0.8rem;
+  padding: 0.65rem 0.85rem;
   background: var(--bg-input);
   border: 1px solid var(--border-soft);
   color: var(--text-main);
-  border-radius: var(--radius-sm);
-  font-size: 0.925rem;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
   transition:
-    border 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+    border 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    transform 0.15s ease;
 }
 
 .modal-content input:focus,
 .modal-content textarea:focus {
   outline: none;
   border-color: var(--accent-ticket);
-  box-shadow: 0 0 0 2px rgba(79, 195, 247, 0.2);
+  box-shadow: 0 4px 10px rgba(79, 195, 247, 0.25);
   background: #151b27;
+  transform: translateY(-1px);
 }
 
 .modal-content textarea {
   resize: vertical;
-  min-height: 90px;
+  min-height: 100px;
+}
+
+.field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.field-wrapper input,
+.field-wrapper textarea {
+  flex: 1;
+  padding-right: 2.5rem;
+}
+
+.copy-btn {
+  position: absolute;
+  right: 0.35rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.45rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background: rgba(79, 195, 247, 0.1);
+  border-color: var(--accent-ticket);
+  transform: translateY(-1px);
 }
 
 /* ===== BUTTONS ===== */
 .modal-actions button {
-  padding: 0.55rem 1.2rem;
-  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.3rem;
+  border-radius: var(--radius-md);
   border: none;
   cursor: pointer;
-  font-size: 0.925rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
 .modal-actions button.primary {
@@ -121,8 +154,8 @@
 
 .modal-actions button:hover {
   filter: brightness(1.15);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
 }
 
 /* ===== CONFIRM MODAL ===== */
@@ -165,8 +198,8 @@
 
 .radio-option {
   position: relative;
-  padding: 0.8rem 1rem;
-  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
   background: var(--bg-input);
   border: 1px solid var(--border-soft);
   cursor: pointer;
@@ -183,15 +216,15 @@
 }
 
 .radio-option strong {
-  font-size: 0.925rem;
+  font-size: 0.95rem;
   color: var(--text-main);
 }
 
 .radio-option.active,
 .radio-option:has(input:checked) {
   border-color: var(--accent-ticket);
-  background: rgba(79, 195, 247, 0.08);
-  box-shadow: 0 0 0 1px rgba(79, 195, 247, 0.35);
+  background: rgba(79, 195, 247, 0.1);
+  box-shadow: 0 0 0 2px rgba(79, 195, 247, 0.35);
 }
 
 .radio-option:hover {
@@ -199,14 +232,25 @@
 }
 
 .custom-date {
-  margin-top: 0.45rem;
+  margin-top: 0.5rem;
   padding-left: 0.3rem;
 }
 
 .custom-date input {
   max-width: 220px;
-  padding: 0.55rem 0.7rem;
-  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-input);
+  color: var(--text-main);
+  font-size: 0.925rem;
+  transition: all 0.25s ease;
+}
+
+.custom-date input:focus {
+  border-color: var(--accent-ticket);
+  box-shadow: 0 3px 8px rgba(79, 195, 247, 0.25);
+  background: #151b27;
 }
 
 /* ===== SCROLLBAR WITHIN MODAL ===== */

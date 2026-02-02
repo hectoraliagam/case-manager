@@ -15,6 +15,22 @@ export function openFormModal(tipo, data = {}, onSave) {
       </div>
     </form>
   `;
+  modalObj.formFields.querySelectorAll(".copy-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const wrapper = e.currentTarget.closest(".field-wrapper");
+      const field = wrapper.querySelector("input, textarea");
+      if (field) {
+        const valueToCopy = field.value || "";
+        navigator.clipboard
+          .writeText(valueToCopy)
+          .then(() => {
+            btn.textContent = "✅";
+            setTimeout(() => (btn.textContent = "📋"), 1000);
+          })
+          .catch(() => alert("Error al copiar al portapapeles"));
+      }
+    });
+  });
   const form = modalObj.formFields.querySelector("#modal-form");
   form.querySelector(".cancel-btn").onclick = () => closeModal(modalObj);
   form.onsubmit = (e) => {
@@ -23,7 +39,7 @@ export function openFormModal(tipo, data = {}, onSave) {
     if (onSave) onSave(formData);
     closeModal(modalObj);
   };
-};
+}
 
 function generateForm(tipo, data = {}) {
   const isBbdd = tipo === "BBDD";
@@ -60,18 +76,24 @@ function generateForm(tipo, data = {}) {
 
 function input(label, name, value = "", required = false, type = "text") {
   return `
-    <div class="field">
+    <div class="field field-with-copy">
       <label>${label}</label>
-      <input type="${type}" name="${name}" value="${value || ""}" ${required ? "required" : ""}>
+      <div class="field-wrapper">
+        <input type="${type}" name="${name}" value="${value || ""}" ${required ? "required" : ""}>
+        <button type="button" class="copy-btn" title="Copiar">📋</button>
+      </div>
     </div>
   `;
 }
 
 function textarea(label, name, value = "") {
   return `
-    <div class="field field-textarea">
+    <div class="field field-textarea field-with-copy">
       <label>${label}</label>
-      <textarea name="${name}" rows="4">${value || ""}</textarea>
+      <div class="field-wrapper">
+        <textarea name="${name}" rows="4">${value || ""}</textarea>
+        <button type="button" class="copy-btn" title="Copiar">📋</button>
+      </div>
     </div>
   `;
 }
