@@ -28,6 +28,7 @@
   max-width: 90%;
   max-height: 90vh;
   overflow-y: auto;
+  overscroll-behavior: contain;
   border-radius: var(--radius-lg);
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
   display: flex;

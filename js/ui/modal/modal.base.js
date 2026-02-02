@@ -23,6 +23,7 @@ export function openModal(modalObj, title) {
   modalTitle.textContent = title;
   formFields.innerHTML = "";
   modalFooter.innerHTML = "";
+  document.body.classList.add("no-scroll");
 }
 
 export function closeModal(modalObj) {
@@ -31,4 +32,5 @@ export function closeModal(modalObj) {
   modalTitle.textContent = "";
   formFields.innerHTML = "";
   modalFooter.innerHTML = "";
+  document.body.classList.remove("no-scroll");
 }
