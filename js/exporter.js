@@ -30,6 +30,7 @@ function exportCaseToTxt(data, numero) {
   txt += line("TELEFONO_FIJO", data.telefonoFijo);
   txt += line("IP", data.ip);
   txt += line("SOT_PROVISION", data.sotProvision);
+  txt += line("ESTADO", data.estado || "no_vista");
   if (data.tipo === "BBDD") {
     txt += block("PROBLEMA_FRONT", data.problemaFront);
     txt += block("PROBLEMA_BACK", data.problemaBack);

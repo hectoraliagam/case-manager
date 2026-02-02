@@ -49,6 +49,7 @@ function mapKey(key) {
     TELEFONO_FIJO: "telefonoFijo",
     IP: "ip",
     SOT_PROVISION: "sotProvision",
+    ESTADO: "estado",
     PROBLEMA_FRONT: "problemaFront",
     PROBLEMA_BACK: "problemaBack",
     PROBLEMA: "problema",
