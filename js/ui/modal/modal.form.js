@@ -117,7 +117,14 @@ function input(label, name, value = "", required = false, type = "text") {
     <div class="field field-with-copy">
       <label>${label}</label>
       <div class="field-wrapper">
-        <input type="${type}" name="${name}" value="${value || ""}" ${required ? "required" : ""}>
+        <input 
+          type="${type}" 
+          name="${name}" 
+          value="${value || ""}" 
+          ${required ? "required" : ""} 
+          autocomplete="off" 
+          spellcheck="false"
+        >
         <button type="button" class="copy-btn" title="Copiar">📋</button>
       </div>
     </div>
@@ -129,7 +136,12 @@ function textarea(label, name, value = "") {
     <div class="field field-textarea field-with-copy">
       <label>${label}</label>
       <div class="field-wrapper">
-        <textarea name="${name}" rows="1">${value || ""}</textarea>
+        <textarea 
+          name="${name}" 
+          rows="1" 
+          autocomplete="off" 
+          spellcheck="false"
+        >${value || ""}</textarea>
         <button type="button" class="copy-btn" title="Copiar">📋</button>
       </div>
     </div>
