@@ -96,7 +96,8 @@
 
 .modal-content textarea {
   resize: vertical;
-  min-height: 100px;
+  overflow: hidden;
+  min-height: 24px;
 }
 
 .field-wrapper {

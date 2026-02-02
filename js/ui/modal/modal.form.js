@@ -31,6 +31,14 @@ export function openFormModal(tipo, data = {}, onSave) {
       }
     });
   });
+  modalObj.formFields.querySelectorAll("textarea").forEach((ta) => {
+    const resize = () => {
+      ta.style.height = "auto";
+      ta.style.height = ta.scrollHeight + "px";
+    };
+    ta.addEventListener("input", resize);
+    resize();
+  });
   const form = modalObj.formFields.querySelector("#modal-form");
   form.querySelector(".cancel-btn").onclick = () => closeModal(modalObj);
   form.onsubmit = (e) => {
@@ -91,7 +99,7 @@ function textarea(label, name, value = "") {
     <div class="field field-textarea field-with-copy">
       <label>${label}</label>
       <div class="field-wrapper">
-        <textarea name="${name}" rows="4">${value || ""}</textarea>
+        <textarea name="${name}" rows="1">${value || ""}</textarea>
         <button type="button" class="copy-btn" title="Copiar">📋</button>
       </div>
     </div>
