@@ -24,11 +24,10 @@
 }
 
 .field-wrapper {
-  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: stretch;
   margin-bottom: 1rem;
+  min-height: 36px;
 }
 
 .field-wrapper label {
@@ -46,13 +45,17 @@
 
 .field-wrapper input,
 .field-wrapper textarea {
-  padding: 0.65rem 2.5rem 0.65rem 0.85rem;
+  flex: 1 1 auto;
+  padding: 0.65rem 0.85rem;
   background: var(--bg-input);
   border: 1px solid var(--border-soft);
-  color: var(--text-main);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
   font-size: 0.95rem;
+  color: var(--text-main);
   transition: all 0.25s ease;
+  min-width: 0;
+  min-height: 36px;
+  box-sizing: border-box;
 }
 
 .field-wrapper textarea {
@@ -71,24 +74,24 @@
 }
 
 .copy-btn {
-  position: absolute;
-  right: 0.35rem;
-  top: 50%;
-  transform: translateY(-50%);
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: auto;
   background: var(--bg-input);
   border: 1px solid var(--border-soft);
-  border-radius: var(--radius-sm);
-  padding: 0.35rem 0.45rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   cursor: pointer;
-  font-size: 0.85rem;
-  color: var(--text-main);
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: all 0.2s ease;
 }
 
 .copy-btn:hover {
   background: rgba(79, 195, 247, 0.1);
   border-color: var(--accent-ticket);
-  transform: translateY(-50%) translateY(-1px);
+  transform: translateY(-1px);
 }
 
 .modal-actions {
@@ -128,19 +131,13 @@
 }
 
 @media (max-width: 600px) {
-  .field-wrapper {
-    flex-direction: column;
-    align-items: stretch;
+  .field-wrapper input,
+  .field-wrapper textarea {
+    flex: 1 1 60%;
   }
 
   .copy-btn {
-    width: 100%;
-    top: auto;
-    transform: none;
-  }
-
-  .modal-actions button {
-    flex: 1 1 auto;
-    padding: 0.85rem 1rem;
+    width: 2.3rem;
+    font-size: 0.85rem;
   }
 }
