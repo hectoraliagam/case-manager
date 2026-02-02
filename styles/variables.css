@@ -2,20 +2,20 @@
 
 :root {
   /* ===== BACKGROUNDS ===== */
-  --bg-main: #0f1115;          /* Fondo general */
-  --bg-header: #0b0d12;        /* Header */
-  --bg-card: #161a22;          /* Cards / Cases */
-  --bg-modal: #1c2230;         /* Modales */
-  --bg-input: #0f131b;         /* Inputs y textareas */
-  --bg-button: #1f2430;        /* Botones generales */
-  --bg-button-hover: #2a3040;  /* Hover de botones */
+  --bg-main: #0f1115; /* Fondo general */
+  --bg-header: #0b0d12; /* Header */
+  --bg-card: #161a22; /* Cards / Cases */
+  --bg-modal: #1c2230; /* Modales */
+  --bg-input: #0f131b; /* Inputs y textareas */
+  --bg-button: #1f2430; /* Botones generales */
+  --bg-button-hover: #2a3040; /* Hover de botones */
   --bg-radio-active: rgba(79, 195, 247, 0.08);
   --bg-scrollbar-thumb: #2a3040;
   --bg-scrollbar-thumb-hover: #3a4157;
 
   /* ===== ACCENTS ===== */
-  --accent-bbdd: #c9a14a;      /* BBDD */
-  --accent-ticket: #4fc3f7;    /* Ticket */
+  --accent-bbdd: #c9a14a; /* BBDD */
+  --accent-ticket: #4fc3f7; /* Ticket */
   --accent-primary: var(--accent-bbdd);
   --accent-danger: #ff4d4f;
   --accent-hover: #e6b947;
