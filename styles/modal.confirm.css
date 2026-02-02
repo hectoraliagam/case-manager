@@ -1,0 +1,18 @@
+/* modal.confirm.css */
+
+.confirm-text {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 1rem 0;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.9rem;
+}
+
+.confirm-actions .danger {
+  background: #ff4d4f;
+  color: #fff;
+}

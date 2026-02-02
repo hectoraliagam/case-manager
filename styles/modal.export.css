@@ -1,0 +1,77 @@
+/* modal.export.css */
+
+.export-box {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.export-desc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0.8rem;
+}
+
+.export-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.radio-option {
+  position: relative;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-input);
+  border: 1px solid var(--border-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.25s ease;
+  font-weight: 500;
+}
+
+.radio-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.radio-option strong {
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.radio-option.active,
+.radio-option:has(input:checked) {
+  border-color: var(--accent-ticket);
+  background: rgba(79, 195, 247, 0.1);
+  box-shadow: 0 0 0 2px rgba(79, 195, 247, 0.35);
+}
+
+.radio-option:hover {
+  border-color: var(--accent-ticket);
+}
+
+.custom-date {
+  margin-top: 0.5rem;
+  padding-left: 0.3rem;
+}
+
+.custom-date input {
+  max-width: 220px;
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-input);
+  color: var(--text-main);
+  font-size: 0.925rem;
+  transition: all 0.25s ease;
+}
+
+.custom-date input:focus {
+  border-color: var(--accent-ticket);
+  box-shadow: 0 3px 8px rgba(79, 195, 247, 0.25);
+  background: #151b27;
+}

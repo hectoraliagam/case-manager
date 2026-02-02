@@ -1,6 +1,5 @@
 /* layout.css */
 
-/* ===== HEADER ===== */
 .app-header {
   padding: 1rem 2rem;
   background: var(--bg-header);
@@ -18,7 +17,7 @@
 }
 
 .app-header:hover {
-  background: #0e1014; /* un sutil darken al hacer hover */
+  background: #0e1014;
   box-shadow: 0 12px 30px rgba(0,0,0,0.4);
 }
 
@@ -36,7 +35,6 @@
   color: var(--accent-bbdd);
 }
 
-/* ===== ACTION BUTTONS ===== */
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -66,7 +64,6 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.25);
 }
 
-/* ===== GRID ===== */
 .cases-grid {
   padding: 2rem;
   display: grid;
@@ -75,7 +72,6 @@
   transition: all 0.2s ease;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .app-header {
     padding: 0.8rem 1rem;

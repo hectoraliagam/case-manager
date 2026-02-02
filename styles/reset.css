@@ -19,7 +19,6 @@ button {
   display: none !important;
 }
 
-/* SCROLLBAR */
 * {
   scrollbar-width: thin;
   scrollbar-color: #2a3040 transparent;
