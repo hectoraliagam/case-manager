@@ -15,14 +15,27 @@ export function openFormModal(tipo, data = {}, onSave) {
       </div>
     </form>
   `;
+  const form = modalObj.formFields.querySelector("#modal-form");
+  form
+    .querySelector(".cancel-btn")
+    .addEventListener("click", () => closeModal(modalObj));
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    form
+      .querySelectorAll("input, textarea")
+      .forEach((f) => (f.value = f.value));
+    const formData = new FormData(form);
+    console.log("FormData entries:", [...formData.entries()]);
+    if (onSave) onSave(formData);
+    closeModal(modalObj);
+  });
   modalObj.formFields.querySelectorAll(".copy-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const wrapper = e.currentTarget.closest(".field-wrapper");
       const field = wrapper.querySelector("input, textarea");
       if (field) {
-        const valueToCopy = field.value || "";
         navigator.clipboard
-          .writeText(valueToCopy)
+          .writeText(field.value || "")
           .then(() => {
             btn.textContent = "✅";
             setTimeout(() => (btn.textContent = "📋"), 1000);
@@ -39,14 +52,6 @@ export function openFormModal(tipo, data = {}, onSave) {
     ta.addEventListener("input", resize);
     resize();
   });
-  const form = modalObj.formFields.querySelector("#modal-form");
-  form.querySelector(".cancel-btn").onclick = () => closeModal(modalObj);
-  form.onsubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-    if (onSave) onSave(formData);
-    closeModal(modalObj);
-  };
 }
 
 function generateForm(tipo, data = {}) {
@@ -59,7 +64,7 @@ function generateForm(tipo, data = {}) {
     ${
       isBbdd
         ? `${input("Fecha Derivación", "fechaDerivacion", data.fechaDerivacion)}
-         ${input("Fecha Cierre", "fechaCierre", data.fechaCierre)}`
+           ${input("Fecha Cierre", "fechaCierre", data.fechaCierre)}`
         : input("Nro Ticket", "nroTicket", data.nroTicket, true, "number")
     }
     ${input("Nombre", "nombre", data.nombre, true)}
@@ -72,7 +77,7 @@ function generateForm(tipo, data = {}) {
     ${
       isBbdd
         ? `${textarea("Problema Front", "problemaFront", data.problemaFront)}
-         ${textarea("Problema Back", "problemaBack", data.problemaBack)}`
+           ${textarea("Problema Back", "problemaBack", data.problemaBack)}`
         : textarea("Problema", "problema", data.problema)
     }
     ${input("SOT Generada", "sotGenerada", data.sotGenerada, false, "number")}

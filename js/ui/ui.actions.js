@@ -1,13 +1,12 @@
-// ui/ui.actions.js
-
 import { loadCases, deleteCase } from "../data/cases.store.js";
 import { openFormModal } from "./modal/modal.form.js";
 import { openConfirmModal } from "./modal/modal.confirm.js";
 import { renderCases } from "./ui.render.js";
+import { handleFormSubmit } from "../data/cases.handler.js";
 
 export function editCase(id) {
   const c = loadCases().find((c) => c.id === id);
-  if (c) openFormModal(c.tipo, c);
+  if (c) openFormModal(c.tipo, c, handleFormSubmit);
 }
 
 export function removeCase(id) {
