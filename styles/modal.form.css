@@ -5,6 +5,24 @@
   flex-direction: column;
 }
 
+.form-fields select {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-input);
+  color: var(--text-main);
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+}
+
+.form-fields select:focus {
+  outline: none;
+  border-color: var(--accent-ticket);
+  box-shadow: 0 4px 10px rgba(79, 195, 247, 0.25);
+  background: #151b27;
+}
+
 .field-wrapper {
   position: relative;
   display: flex;

@@ -22,6 +22,7 @@ function renderCaseCard(data, numero) {
       </div>
     </div>
     <button class="btn-delete" title="Eliminar">🗑</button>
+    <span class="case-status ${data.estado || "no-vista"}"></span>
   `;
   const content = card.querySelector(".card-content");
   const btnDelete = card.querySelector(".btn-delete");

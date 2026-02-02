@@ -44,6 +44,16 @@ export function openFormModal(tipo, data = {}, onSave) {
       }
     });
   });
+  modalObj.formFields.querySelectorAll(".estado-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const estado = btn.dataset.estado;
+      modalObj.formFields
+        .querySelectorAll(".estado-btn")
+        .forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      modalObj.formFields.querySelector('input[name="estado"]').value = estado;
+    });
+  });
   modalObj.formFields.querySelectorAll("textarea").forEach((ta) => {
     const resize = () => {
       ta.style.height = "auto";
@@ -84,6 +94,21 @@ function generateForm(tipo, data = {}) {
     ${input("REMEDY Generada", "remedy", data.remedy)}
     ${textarea("Observaciones", "observaciones", data.observaciones)}
     ${isBbdd ? textarea("Plantilla", "plantilla", data.plantilla) : ""}
+    <div class="field">
+      <label>Estado</label>
+      <div class="estado-options">
+        ${["no-vista", "pendiente", "cerrada", "no-aplica"]
+          .map(
+            (e) => `
+          <button type="button" class="estado-btn ${data.estado === e ? "active" : ""}" data-estado="${e}">
+            ${estadoLabel(e)}
+          </button>
+        `,
+          )
+          .join("")}
+        <input type="hidden" name="estado" value="${data.estado || "no-vista"}">
+      </div>
+    </div>
   `;
 }
 
@@ -109,4 +134,19 @@ function textarea(label, name, value = "") {
       </div>
     </div>
   `;
+}
+
+function estadoLabel(e) {
+  switch (e) {
+    case "no-vista":
+      return "No vista";
+    case "pendiente":
+      return "Pendiente";
+    case "cerrada":
+      return "Cerrada";
+    case "no-aplica":
+      return "No aplica";
+    default:
+      return e;
+  }
 }
