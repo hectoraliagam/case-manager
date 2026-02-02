@@ -21,7 +21,7 @@ export function parseTxtCase(text) {
         buffer.push(lines[i]);
         i++;
       }
-      data[mapKey(key)] = buffer.join("\n").trim();
+      data[mapKey(key)] = buffer.join("\n");
       i++;
       continue;
     }
