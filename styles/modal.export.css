@@ -38,6 +38,12 @@
   pointer-events: none;
 }
 
+.radio-option.active + .custom-date,
+.radio-option:has(input:checked) + .custom-date {
+  display: block;
+  margin-top: 0.5rem;
+}
+
 .radio-option strong {
   font-size: 0.95rem;
   color: var(--text-main);
@@ -74,4 +80,27 @@
   border-color: var(--accent-ticket);
   box-shadow: 0 3px 8px rgba(79, 195, 247, 0.25);
   background: #151b27;
+}
+
+.custom-date input[type="date"] {
+  width: 220px;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-input);
+  color: var(--text-main);
+  font-size: 0.925rem;
+  transition: all 0.25s ease;
+}
+
+.custom-date input[type="date"]:focus {
+  border-color: var(--accent-ticket);
+  box-shadow: 0 4px 12px rgba(79, 195, 247, 0.25);
+  background: #151b27;
+  outline: none;
+}
+
+.custom-date input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.8);
 }

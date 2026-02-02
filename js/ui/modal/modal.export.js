@@ -2,6 +2,7 @@ import { createModal, openModal, closeModal } from "./modal.base.js";
 import { formatDate } from "../../helpers/date.js";
 import { exportAllCasesToTxt } from "../../exporter.js";
 
+let lastCustomDate = "";
 export function openExportModal() {
   const modalObj = createModal();
   openModal(modalObj, "Exportar anotaciones");
@@ -18,7 +19,7 @@ export function openExportModal() {
             <strong>Elegir fecha</strong>
           </label>
           <div class="custom-date hidden">
-            <input type="date" name="customDate">
+            <input type="date" name="customDate" value="${lastCustomDate}">
           </div>
         </div>
       </div>
@@ -29,17 +30,25 @@ export function openExportModal() {
     </form>
   `;
   const form = modalObj.formFields.querySelector("#modal-export-form");
-  form.querySelector(".cancel-btn").onclick = () => closeModal(modalObj);
   const radios = form.querySelectorAll("input[name='dateMode']");
   const options = form.querySelectorAll(".radio-option");
   const dateBox = form.querySelector(".custom-date");
-  radios.forEach((radio, i) =>
+  const dateInput = form.querySelector("input[name='customDate']");
+  form.querySelector(".cancel-btn").onclick = () => closeModal(modalObj);
+  radios.forEach((radio, i) => {
     radio.addEventListener("change", () => {
       options.forEach((o) => o.classList.remove("active"));
       options[i].classList.add("active");
       dateBox.classList.toggle("hidden", radio.value !== "custom");
-    })
-  );
+      if (radio.value === "custom") {
+        dateInput.value =
+          lastCustomDate || new Date().toISOString().slice(0, 10);
+      }
+    });
+  });
+  dateInput.addEventListener("input", (e) => {
+    lastCustomDate = e.target.value;
+  });
   form.onsubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(form);
@@ -48,6 +57,7 @@ export function openExportModal() {
     if (dateMode === "custom") {
       const custom = formData.get("customDate");
       if (!custom) return alert("Selecciona una fecha");
+      lastCustomDate = custom;
       date = formatDate(custom);
     } else {
       date = formatDate(new Date());
