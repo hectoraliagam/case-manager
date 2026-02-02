@@ -6,6 +6,7 @@ import { openFormModal } from "./ui/modal/modal.form.js";
 import { openExportModal } from "./ui/modal/modal.export.js";
 import { openImportModal } from "./ui/modal/modal.import.js";
 import { handleFormSubmit } from "./data/cases.handler.js";
+import { getActiveModal, closeModal } from "./ui/modal/modal.base.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initUI();
@@ -29,4 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
     e.target.value = "";
   });
   renderCases();
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    const modalObj = getActiveModal();
+    if (modalObj) {
+      closeModal(modalObj);
+    }
+  });
 });

@@ -1,5 +1,6 @@
 // ui/modal/modal.base.js
 
+let activeModal = null;
 export function createModal() {
   const modal = document.createElement("div");
   modal.className = "modal-overlay hidden";
@@ -24,6 +25,7 @@ export function openModal(modalObj, title) {
   formFields.innerHTML = "";
   modalFooter.innerHTML = "";
   document.body.classList.add("no-scroll");
+  activeModal = modalObj;
 }
 
 export function closeModal(modalObj) {
@@ -33,4 +35,9 @@ export function closeModal(modalObj) {
   formFields.innerHTML = "";
   modalFooter.innerHTML = "";
   document.body.classList.remove("no-scroll");
+  activeModal = null;
+}
+
+export function getActiveModal() {
+  return activeModal;
 }
