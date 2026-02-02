@@ -6,26 +6,24 @@ export function openFormModal(tipo, data = {}, onSave) {
   const modalObj = createModal();
   const title = data.id ? "Editar Caso" : `Nuevo Caso ${tipo}`;
   openModal(modalObj, title);
-  modalObj.formFields.innerHTML = generateForm(tipo, data);
-  modalObj.modalFooter.innerHTML = `
-    <div class="modal-actions">
-      <button type="button" class="cancel-btn">Cancelar</button>
-      <button type="submit" class="primary">Guardar</button>
-    </div>
+  modalObj.formFields.innerHTML = `
+    <form id="modal-form">
+      ${generateForm(tipo, data)}
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn">Cancelar</button>
+        <button type="submit" class="primary">Guardar</button>
+      </div>
+    </form>
   `;
-  modalObj.modalFooter.querySelector(".cancel-btn").onclick = () =>
-    closeModal(modalObj);
-  modalObj.modalFooter.querySelector(".primary").onclick = (e) => {
+  const form = modalObj.formFields.querySelector("#modal-form");
+  form.querySelector(".cancel-btn").onclick = () => closeModal(modalObj);
+  form.onsubmit = (e) => {
     e.preventDefault();
-    if (onSave)
-      onSave(
-        Object.fromEntries(
-          new FormData(modalObj.formFields.closest("form") || new FormData()),
-        ),
-      );
+    const formData = new FormData(form);
+    if (onSave) onSave(formData);
     closeModal(modalObj);
   };
-}
+};
 
 function generateForm(tipo, data = {}) {
   const isBbdd = tipo === "BBDD";

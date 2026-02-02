@@ -1,3 +1,5 @@
+// data/cases.store.js
+
 const STORAGE_KEY = "case_manager_cases";
 
 export function loadCases() {
